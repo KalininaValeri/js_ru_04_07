@@ -1,7 +1,15 @@
 import React, {Component} from 'react';
 import CommnetsList from './CommnetsList';
+import PropTypes from 'prop-types';
 
 class Article extends Component {
+  static propTypes = {
+    article: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        text: PropTypes.string.isRequired
+    })
+  }
+
   constructor(props) {
     super(props)
 

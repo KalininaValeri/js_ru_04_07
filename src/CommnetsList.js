@@ -6,9 +6,14 @@ class CommnetsList extends Component {
         isOpen: false
     };
 
-    static defaultProps = {
+    static defaulProps = {
       comments: []
     };
+
+    componentWillMount(){
+        console.log('---', 'mounting', this.props.comments.length)
+
+    }
 
     render() {
 
@@ -19,6 +24,11 @@ class CommnetsList extends Component {
                 {this.getBody()}
             </div>
         )
+    }
+
+    componentDidMount(){
+        console.log('----', 'mounted');
+        debugger
     }
 
     getBody() {
