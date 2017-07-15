@@ -1,54 +1,31 @@
 import React, {Component} from 'react'
 import Comment from './Comment'
+import toggleOpen from '../decorators/toggleOpen'
 
-class CommnetsList extends Component {
-    state = {
-        isOpen: false
-    };
-
-    static defaulProps = {
-      comments: []
-    };
-
-    componentWillMount(){
-        console.log('---', 'mounting', this.props.comments.length)
-
-    }
-
-    render() {
-
-        const {isOpen} = this.state;
-        return (
-            <div>
-                <a href="#" onClick={this.toggleOpen}>{isOpen ? 'close' : 'open'} comments</a>
-                {this.getBody()}
-            </div>
-        )
-    }
-
-    componentDidMount(){
-        console.log('----', 'mounted');
-        debugger
-    }
-
-    getBody() {
-        if (!this.state.isOpen) return null;
-        const { comments } = this.props;
-        if (!comments || !comments.length) return <span> No comments yet</span>
-        return (
-            <ul>
-                {comments.map(comment => <li key={comment.id}><Comment comment = {comment} /></li>)}
-            </ul>
-        )
-    }
-
-    toggleOpen = () => {
-        this.setState({
-            isOpen: !this.state.isOpen
-        })
-    }
-
-
+function CommnetsList(props) {
+    const { comments, isOpen } = props;
+    return (
+      <div>
+          <a href="#" onClick={toggleOpen}>{isOpen ? 'close' : 'open'} comments</a>
+          {this.getBody()}
+      </div>
+    )
 }
 
-export default CommnetsList;
+function getBody({ comments, isOpen }) {
+  if (!isOpen) return null;
+  if (!comments.length) return <span> No comments yet</span>
+  return (
+      <ul>
+          {comments.map(comment => <li key={comment.id}><Comment comment = {comment} /></li>)}
+      </ul>
+  )
+}
+
+CommnetsList.defaulProps = {comments: []};
+
+
+
+
+
+export default toggleOpen(CommentList)
